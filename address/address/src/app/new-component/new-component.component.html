@@ -1,0 +1,104 @@
+<!-- Main Toolbar of an App -->
+<mat-toolbar color="primary">
+  <span>Address Update</span>
+</mat-toolbar>
+
+
+<!--
+abstract control: AbstractControl | null
+value: any
+valid: boolean | null
+invalid: boolean | null
+pending: boolean | null
+disabled: boolean | null
+enabled: boolean | null
+errors: ValidationErrors | null
+pristine: boolean | null
+dirty: boolean | null
+touched: boolean | null
+status: string | null
+untouched: boolean | null
+statusChanges: Observable<any> | null
+valueChanges: Observable<any> | null
+path: string[] | null
+-->
+
+
+
+
+
+<mat-card>
+  <!-- Title of an Card -->
+  <mat-card-title>
+    Update Person
+  </mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="updatePerson" (ngSubmit)="onSubmit()">
+      <section>
+      <label>Primary Address</label>
+        <br />
+      <mat-form-field>
+        <input matInput placeholder="Line 1 (ex: 123 Main St.)" formControlName="line1" required>
+      </mat-form-field>
+        <ng-container *ngIf="line1.touched && line1.invalid">
+          <mat-error>
+            Mailing Address Line 1 is required
+          </mat-error>
+        </ng-container>
+      <br/>
+      <mat-form-field>
+        <input matInput placeholder="Line 2 (ex. APT 100)">
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput placeholder="City" formControlName="primaryCity" required>
+      </mat-form-field>
+      </section>
+
+
+
+      <section>
+        <br/>
+      <mat-checkbox></mat-checkbox>
+      Mailing Address is Same
+      </section>
+
+      <!--
+      <hr />
+
+      <section>
+      <br/>
+      <label>Phone Numbers</label>
+      <br />
+
+      <mat-form-field>
+        <input matInput placeholder="Home Phone">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Mobile Phone">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Fax Phone">
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <input matInput placeholder="Relay Phone">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="TTY Phone">
+      </mat-form-field>
+      </section>
+      -->
+      <section>
+      <br />
+      <button [disabled]="!updatePerson.valid" mat-raised-button color="primary">Submit</button>
+      <button mat-raised-button color="accent" (click)="openDialog()">Clear</button>
+      </section>
+    </form>
+  </mat-card-content>
+</mat-card>
