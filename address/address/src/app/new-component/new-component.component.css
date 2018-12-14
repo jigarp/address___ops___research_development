@@ -1,0 +1,12 @@
+.flex-container {
+  display: flex;
+}
+
+
+.card-container {
+  /*  not needed styles to reflect it */
+  background: white;
+  padding: 20px;
+  text-align: left;
+
+}

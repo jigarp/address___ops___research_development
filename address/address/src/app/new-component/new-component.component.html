@@ -1,6 +1,8 @@
 <!-- Main Toolbar of an App -->
 <mat-toolbar color="primary">
-  <span>Address Update</span>
+  <i class="material-icons">
+    contact_mail
+  </i> &nbsp; <span>Address Update</span>
 </mat-toolbar>
 
 
@@ -25,80 +27,154 @@ path: string[] | null
 
 
 
+<div class="flex-container">
+  <div style="width: 20%; padding: 20px">
+    <div>
+      <mat-card class="card-container">
+        <section>
+          Family
+        </section>
+        <section>
+          &nbsp;&nbsp;&nbsp;<strong>John Smith (Sponsor)</strong><br/>
+          &nbsp;&nbsp;&nbsp;Joanie Smith<br/>
+          &nbsp;&nbsp;&nbsp;Alex Smith<br/>
+          &nbsp;&nbsp;&nbsp;Mark Smith<br/>
+        </section>
+      </mat-card>
+    </div>
+  </div>
+  <div style="width: 80%; padding: 20px">
+    <div style="width: 90%">
+      <mat-card class="card-container">
+        <!-- Title of an Card -->
+        <mat-card-title>
+          Update Person
+        </mat-card-title>
+
+        <mat-card-content>
+          <form [formGroup]="updatePerson" (ngSubmit)="onSubmit()">
+            <section>
+              <label><strong>Primary Address</strong></label>
+              <br/>
+              <mat-form-field>
+                <input matInput placeholder="Line 1 (ex: 123 Main St.)" formControlName="primaryLine1" required>
+              </mat-form-field>
+              <ng-container *ngIf="primaryLine1.touched && primaryLine1.invalid">
+                <mat-error>
+                  Address Line 1 is required
+                </mat-error>
+              </ng-container>
+              <br/>
+              <mat-form-field>
+                <input matInput placeholder="Line 2 (ex. APT 100)" formControlName="primaryLine2">
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <input matInput placeholder="City" formControlName="primaryCity" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="State" formControlName="primaryState" [required]="primaryCountry.value == 'United States'">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Zip" formControlName="primaryZip" [required]="primaryCountry.value == 'United States'">
+              </mat-form-field>
+              <br />
+              <mat-form-field>
+                <mat-select placeholder="Country" formControlName="primaryCountry" required>
+                  <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </section>
 
 
-<mat-card>
-  <!-- Title of an Card -->
-  <mat-card-title>
-    Update Person
-  </mat-card-title>
+            <section>
+              <br/>
+              <mat-checkbox #mailIsSameCheckBox formControlName="mailingIsSame"
+                            (click)="handleMailIsSame(mailIsSameCheckBox)"></mat-checkbox>
+              Mailing Address is Same
+            </section>
 
-  <mat-card-content>
-    <form [formGroup]="updatePerson" (ngSubmit)="onSubmit()">
-      <section>
-      <label>Primary Address</label>
-        <br />
-      <mat-form-field>
-        <input matInput placeholder="Line 1 (ex: 123 Main St.)" formControlName="line1" required>
-      </mat-form-field>
-        <ng-container *ngIf="line1.touched && line1.invalid">
-          <mat-error>
-            Mailing Address Line 1 is required
-          </mat-error>
-        </ng-container>
-      <br/>
-      <mat-form-field>
-        <input matInput placeholder="Line 2 (ex. APT 100)">
-      </mat-form-field>
-      <br/>
-      <mat-form-field>
-        <input matInput placeholder="City" formControlName="primaryCity" required>
-      </mat-form-field>
-      </section>
-
-
-
-      <section>
-        <br/>
-      <mat-checkbox></mat-checkbox>
-      Mailing Address is Same
-      </section>
-
-      <!--
-      <hr />
-
-      <section>
-      <br/>
-      <label>Phone Numbers</label>
-      <br />
-
-      <mat-form-field>
-        <input matInput placeholder="Home Phone">
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="Mobile Phone">
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput placeholder="Fax Phone">
-      </mat-form-field>
+            <section *ngIf="mailingIsSameUnChecked">
+              <br/>
+              <label><strong>Mailing Address</strong></label>
+              <br/>
+              <mat-form-field>
+                <input matInput placeholder="Line 1 (ex: 123 Main St.)" formControlName="mailingLine1" required>
+              </mat-form-field>
+              <ng-container *ngIf="mailingLine1.touched && mailingLine1.invalid">
+                <mat-error>
+                  Mailing Address Line 1 is required
+                </mat-error>
+              </ng-container>
+              <br/>
+              <mat-form-field>
+                <input matInput placeholder="Line 2 (ex. APT 100)" formControlName="mailingLine2">
+              </mat-form-field>
+              <br/>
+              <mat-form-field>
+                <input matInput placeholder="City" formControlName="mailingCity" required>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="State" formControlName="mailingState" [required]="mailingCountry.value == 'United States'">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Zip" formControlName="mailingZip" [required]="mailingCountry.value == 'United States'">
+                <mat-error *ngIf="mailingZip.invalid">You must enter at least 5 digits</mat-error>
+              </mat-form-field>
+              <br />
+              <mat-form-field>
+                <mat-select placeholder="Country" formControlName="mailingCountry" required>
+                  <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </section>
 
 
-      <mat-form-field>
-        <input matInput placeholder="Relay Phone">
-      </mat-form-field>
 
-      <mat-form-field>
-        <input matInput placeholder="TTY Phone">
-      </mat-form-field>
-      </section>
-      -->
-      <section>
-      <br />
-      <button [disabled]="!updatePerson.valid" mat-raised-button color="primary">Submit</button>
-      <button mat-raised-button color="accent" (click)="openDialog()">Clear</button>
-      </section>
-    </form>
-  </mat-card-content>
-</mat-card>
+            <!--
+            <hr />
+
+            <section>
+            <br/>
+            <label>Phone Numbers</label>
+            <br />
+
+            <mat-form-field>
+              <input matInput placeholder="Home Phone">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Mobile Phone">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Fax Phone">
+            </mat-form-field>
+
+
+            <mat-form-field>
+              <input matInput placeholder="Relay Phone">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="TTY Phone">
+            </mat-form-field>
+            </section>
+            -->
+            <section>
+              <br/>
+              <button [disabled]="!updatePerson.valid || isSubmittingForm" mat-raised-button color="primary">{{!updatePerson.valid ? 'Please correct form errors' : 'Submit'}}</button>
+              <!--<button mat-raised-button color="accent" (click)="openDialog()">Clear</button>-->
+            </section>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
